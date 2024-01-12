@@ -23,3 +23,15 @@ type User struct {
 	Details   string
 
 }
+
+type User struct {
+	gorm.model
+	Firstname string
+	Lastname  string
+	Tel       string
+	Email     string
+	Username  string
+	Password  string
+	Details   string
+
+}
