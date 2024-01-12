@@ -14,4 +14,11 @@ type Employee struct {
 
 type User struct {
 	gorm.model
+	Firstname string
+	Lastname  string
+	Tel       string
+	Email     string
+	Username  string
+	Password  string
+
 }
