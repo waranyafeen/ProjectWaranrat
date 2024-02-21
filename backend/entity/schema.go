@@ -8,34 +8,33 @@ import (
 
 type Employee struct {
 	gorm.Model
-	Firstname string
-	Lastname  string
-	Tel       string
-	Email     string
-	Username  string
-	Password  string
+	Firstname string	`gorm:"default:Employee" `
+	Lastname  string	`gorm:"default:Employee" `
+	Tel       string	`valid:"required~Tel is required,stringlength(10|10)~Tel must be at 10 characters"`
+	Email     string	`gorm:"unique" valid:"required~Email is required,email~Invalid email"`
+	//Username  string
+	Password  string	`valid:"required~Password is required,minstringlength(4)~Password must be at 4 characters"`
 
 	PositionID uint
-	Position *Position 
+	Position   *Position
 
 	PrecedeID uint
-	Precede *Precede
+	Precede   *Precede
 
 	GenderID uint
-	Gender  *Gender
-
+	Gender   *Gender
 }
 
 type Precede struct {
 	gorm.Model
-	Name string
+	Name string `gorm:"unique"`
 
 	Employee []Employee
 }
 
 type Position struct {
 	gorm.Model
-	Name        string
+	Name        string `gorm:"unique"`
 	Description string
 	Salary      string
 
@@ -44,35 +43,34 @@ type Position struct {
 
 type Gender struct {
 	gorm.Model
-	Name string
+	Name string	`gorm:"unique"`
 
 	Employee []Employee
-	User []User
+	User     []User
 }
 
 type User struct {
 	gorm.Model
-	Firstname string
-	Lastname  string
-	Age       int
-	Phone     string
-	Username  string
-	Email     string
-	Password  string
+	Firstname string	`gorm:"default:User" `
+	Lastname  string	`gorm:"default:User" `
+	Age       int		`valid:"required~Age is required,gte=0~Age must be at least 0"`
+	Phone     string	`valid:"required~Phone number is required,stringlength(10|10)~Phone must be at 10 characters"`
+	Email     string	`gorm:"unique" valid:"required~Email is required,email~Invalid email"`
+	//Username  string
+	Password  string	`valid:"required~Password is required,minstringlength(4)~Password must be at 4 characters"`
 
 	GenderID uint
-	Gender *Gender
+	Gender   *Gender
 
-	RoleID uint
-	Role *Role
+	RoleID uint	
+	Role   *Role
 
 	Payment []Payment
-
 }
 
 type Role struct {
 	gorm.Model
-	Name string
+	Name string `gorm:"unique"`
 
 	User []User
 }
@@ -80,14 +78,14 @@ type Role struct {
 type Ticket struct {
 	gorm.Model
 	Price  string
-	seat   int
-	Detail string
+	Seat   int	
+	Detail string	
 
 	CarID uint
-	Car *Car
+	Car   *Car
 
 	DepartureID uint
-	Departure *Departure
+	Departure   *Departure
 
 	Payment []Payment
 }
@@ -103,7 +101,7 @@ type Departure struct {
 
 type Car struct {
 	gorm.Model
-	Name     string
+	Name     string	
 	CarModel string
 	Route    string
 
@@ -112,12 +110,11 @@ type Car struct {
 
 type Payment struct {
 	gorm.Model
-	Total  int
-	
+	Total int
+
 	TicketID uint
-	Ticket *Ticket
+	Ticket   *Ticket
 
 	UserID uint
-	User *User
+	User   *User
 }
-
